@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Facebook, Mail } from 'lucide-react';
 import { googleProvider, facebookProvider } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import { auth } from '../firebaseConfig';
 
 export default function ExtensionSignUpPage() {
