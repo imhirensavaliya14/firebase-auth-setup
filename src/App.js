@@ -22,11 +22,11 @@ function App() {
         });
 
         // Send message to Chrome extension to notify user is logged in
-        if (window.chrome && chrome.runtime) {
+        if (window.chrome) {
           // External webpage script
-          chrome.runtime.sendMessage(
+          window.chrome.runtime.sendMessage(
             "nmamlcliogiihpdhhpfdgjhpnbbobfke",
-            { message: "loginSuccess", user: userData },
+            { message: "loginSuccess", user: userInfo },
             function (response) {
               console.log(response);
             }

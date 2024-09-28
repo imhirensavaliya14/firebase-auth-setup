@@ -1,5 +1,6 @@
 dependencies:
   firebase: 10.13.2
+  js-cookie: 3.0.5
   lucide-react: 0.446.0
   react: 18.3.1
   react-dom: 18.3.1
@@ -8409,6 +8410,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-AbvRar5r++izmqo5gdbAjTeA6uNRGoNRuj5vHB0OnDXo2DXWZJVuaObiGgtlvhKb+cWy2oYbQSfxv7Q7GjnAtA==
+  /js-cookie/3.0.5:
+    dev: false
+    engines:
+      node: '>=14'
+    resolution:
+      integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==
   /js-levenshtein/1.1.6:
     dev: false
     engines:
@@ -13339,6 +13346,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   firebase: ^10.13.2
+  js-cookie: ^3.0.5
   lucide-react: ^0.446.0
   react: ^18.3.1
   react-dom: ^18.0.0
