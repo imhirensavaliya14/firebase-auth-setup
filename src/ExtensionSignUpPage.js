@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Facebook, Mail } from 'lucide-react';
-import { googleProvider, facebookProvider } from '../firebaseConfig';
+import { googleProvider, facebookProvider, auth } from './firebaseConfig'; // Adjusted import statement
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-
-import { auth } from '../firebaseConfig';
 
 export default function ExtensionSignUpPage() {
   const [name, setName] = useState('');
@@ -119,7 +117,7 @@ export default function ExtensionSignUpPage() {
         </div>
         
         <p className="mt-4 text-center text-xs text-gray-600">
-          Already have an account? <a href="#" className="text-blue-600 hover:underline">Log In</a>
+          Already have an account? <button onClick={() => console.log('Navigate to Login')} className="text-blue-600 hover:underline">Log In</button>
         </p>
       </div>
     </div>
