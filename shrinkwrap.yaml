@@ -1,8 +1,8 @@
 dependencies:
   firebase: 10.13.2
   lucide-react: 0.446.0
-  react: 16.14.0
-  react-dom: 16.14.0
+  react: 18.3.1
+  react-dom: 18.3.1
   react-router: 5.3.4
   react-router-dom: 5.3.4
   react-scripts: 3.0.0
@@ -10846,17 +10846,15 @@ packages:
       node: '>=8.10'
     resolution:
       integrity: sha512-X2KYF/lIGyGwP/F/oXgGDF24nxDA2KC4b7AFto+eqzc/t838gpSGiaU8trTqHXOohuLxxc5qi1eDzsl9ucPDpg==
-  /react-dom/16.14.0:
+  /react-dom/18.3.1:
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      prop-types: 15.8.1
-      scheduler: 0.19.1
+      scheduler: 0.23.2
     dev: false
     peerDependencies:
-      react: ^16.14.0
+      react: ^18.3.1
     resolution:
-      integrity: sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
+      integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
   /react-error-overlay/6.0.11:
     dev: false
     resolution:
@@ -10955,16 +10953,14 @@ packages:
       fsevents: 2.0.6
     resolution:
       integrity: sha512-F4HegoBuUKZvEzXYksQu05Y6vJqallhHkQUEL6M7OQ5rYLBQC/4MTK6km9ZZvEK9TqMy1XA8SSEJGJgTEr6bSQ==
-  /react/16.14.0:
+  /react/18.3.1:
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
-      prop-types: 15.8.1
     dev: false
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+      integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
   /read-pkg-up/2.0.0:
     dependencies:
       find-up: 2.1.0
@@ -11457,13 +11453,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Ydydq3zC+WYDJK1+gRxRapLIED9PWeSuuS41wqyoRmzvhhh9nc+QQrVMKJYzJFULazeGhzSV0QleN2wD3boh2g==
-  /scheduler/0.19.1:
+  /scheduler/0.23.2:
     dependencies:
       loose-envify: 1.4.0
-      object-assign: 4.1.1
     dev: false
     resolution:
-      integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+      integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==
   /schema-utils/1.0.0:
     dependencies:
       ajv: 6.12.6
@@ -13345,8 +13340,8 @@ shrinkwrapVersion: 3
 specifiers:
   firebase: ^10.13.2
   lucide-react: ^0.446.0
-  react: ^16.8.6
-  react-dom: ^16.8.6
+  react: ^18.3.1
+  react-dom: ^18.0.0
   react-router: ^5.0.0
   react-router-dom: ^5.0.0
   react-scripts: 3.0.0
