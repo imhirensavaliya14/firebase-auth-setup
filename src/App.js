@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import SignInPage from './SignInPage';
+import ExtensionSignUpPage from './ExtensionSignUpPage';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -23,7 +24,7 @@ function App() {
       {user ? (
         <h1>Welcome, {user.email}</h1> // Display user email when signed in
       ) : (
-        <SignInPage /> // Show the SignInPage component when not signed in
+        <ExtensionSignUpPage /> // Show the SignInPage component when not signed in
       )}
     </div>
   );
