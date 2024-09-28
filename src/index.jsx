@@ -1,21 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./app.jsx";
-import { HelmetProvider } from 'react-helmet-async';
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css'; // Make sure to include your CSS if you have any styles
 
-/**
-* Root of react site 
-*
-* Imports Helmet provider for the page head
-* And App which defines the content and navigation
-*/
-
-// Render the site https://reactjs.org/docs/react-dom.html#render
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <App />
+  </React.StrictMode>
 );
