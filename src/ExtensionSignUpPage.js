@@ -109,11 +109,7 @@ export default function ExtensionSignUpPage() {
         </div>
         
         <div className="space-y-2">
-          <button onClick={handleFacebookSignUp} className="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-200 flex items-center justify-center text-sm">
-            <Facebook className="w-4 h-4 mr-2 text-blue-600" />
-            Sign Up with Facebook
-          </button>
-          
+                 
           <button onClick={handleGoogleSignUp} className="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-200 flex items-center justify-center text-sm">
             <Mail className="w-4 h-4 mr-2 text-red-500" />
             Sign Up with Google
