@@ -27,7 +27,7 @@ function App() {
 
         if (window.chrome) {
           window.chrome.runtime.sendMessage(
-            "nmamlcliogiihpdhhpfdgjhpnbbobfke",
+            "plbbbdfnahnafhegeijepiojmabeggml",
             { message: "loginSuccess", user: userInfo },
             function (response) {
               console.log(response);
@@ -52,7 +52,7 @@ const handleLogout = async () => {
     Cookies.remove("firebaseUser", { domain: ".glitch.me", path: '/', secure: true }); // Adjust domain and options accordingly
     if (window.chrome) {
     window.chrome.runtime.sendMessage(
-    "nmamlcliogiihpdhhpfdgjhpnbbobfke",
+    "plbbbdfnahnafhegeijepiojmabeggml",
     { message: "logout", user: {} },
     function (response) {
     console.log(response);
