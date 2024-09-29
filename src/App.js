@@ -50,24 +50,38 @@ function App() {
     }
   };
 
-  return (
-    <div className="App">
-      {user ? (
-        <div>
-          <h1>Welcome, {user.email}</h1>{" "}
-          {/* Display user email when signed in */}
+return (
+  <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+    {user ? (
+      <div className="bg-white shadow-lg rounded-lg max-w-md w-full p-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">Welcome Back!</h1>
+
+        <div className="flex flex-col items-center justify-center mb-6">
+          <img
+            src=${`https://ui-avatars.com/api/?name=${user?.email}&background=4C51BF&color=fff&size=128`}
+            alt="User Avatar"
+            className="rounded-full mb-4"
+          />
+          <p className="text-lg text-gray-700">{user?.email}</p>
+        </div>
+
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Your Account</h2>
+          <p className="text-gray-600">Manage your settings or sign out below.</p>
+          
           <button
             onClick={handleLogout}
-            className="mt-4 bg-red-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 transition duration-200"
+            className="mt-4 bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 transition duration-200 w-full"
           >
             Logout
           </button>
         </div>
-      ) : (
-        <ExtensionSignUpPage /> // Show the SignInPage component when not signed in
-      )}
-    </div>
-  );
+      </div>
+    ) : (
+      <ExtensionSignUpPage /> // Render the sign-up page when not signed in
+    )}
+  </div>
+);
 }
 
 export default App;
