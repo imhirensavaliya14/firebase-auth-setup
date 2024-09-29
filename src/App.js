@@ -16,13 +16,13 @@ function App() {
           email: user.email,
         };
         console.log('userInfo >>> ',userInfo);
-     Cookies.set("firebaseUser", JSON.stringify(userInfo), {
-  domain: "firebase-auth-setup.glitch.me",  // Domain without the protocol
-  expires: 7,                               // Expire after 7 days
-  path: '/',                                // Ensure the cookie is valid across all paths
-  secure: true,                             // Use secure flag for HTTPS only
-  sameSite: 'Lax'                           // Optional: Set SameSite attribute
-});
+        Cookies.set("firebaseUser", JSON.stringify(userInfo), {
+        domain: "firebase-auth-setup.glitch.me",  // Domain without the protocol
+        expires: 7,                               // Expire after 7 days
+        path: '/',                                // Ensure the cookie is valid across all paths
+        secure: true,                             // Use secure flag for HTTPS only
+        sameSite: 'Lax'                           // Optional: Set SameSite attribute
+        });
 
 
         if (window.chrome) {
@@ -52,6 +52,16 @@ const handleLogout = async () => {
    Cookies.remove("firebaseUser", { domain: ".glitch.me", path: '/', secure: true }); // Adjust domain and options accordingly
 
     await signOut(auth); 
+            if (window.chrome) {
+          window.chrome.runtime.sendMessage(
+            "nmamlcliogiihpdhhpfdgjhpnbbobfke",
+            { message: "logout", user: {} },
+            function (response) {
+              console.log(response);
+            }
+          );
+        }
+
     console.log("User signed out successfully");
   } catch (error) {
     console.error("Error signing out:", error);
