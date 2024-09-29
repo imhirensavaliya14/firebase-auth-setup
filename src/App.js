@@ -15,11 +15,15 @@ function App() {
           uid: user.uid,
           email: user.email,
         };
-        Cookies.set("firebaseUser", JSON.stringify(userInfo), {
-          domain: "https://firebase-auth-setup.glitch.me/", 
-          expires: 7, 
-          secure: true,
-        });
+        console.log('userInfo >>> ',userInfo);
+     Cookies.set("firebaseUser", JSON.stringify(userInfo), {
+  domain: "firebase-auth-setup.glitch.me",  // Domain without the protocol
+  expires: 7,                               // Expire after 7 days
+  path: '/',                                // Ensure the cookie is valid across all paths
+  secure: true,                             // Use secure flag for HTTPS only
+  sameSite: 'Lax'                           // Optional: Set SameSite attribute
+});
+
 
         if (window.chrome) {
           window.chrome.runtime.sendMessage(
@@ -42,7 +46,11 @@ function App() {
 const handleLogout = async () => {
   try {
     // Remove the cookie for the logged-in user
-    Cookies.remove("firebaseUser", { domain: "https://firebase-auth-setup.glitch.me/" }); // Use your actual domain
+    Cookies.remove("firebaseUser", { domain: "firebase-auth-setup.glitch.me", path: '/' });
+
+    Cookies.remove("firebaseUser", { domain: "firebase-auth-setup.glitch.me" }); // Use your actual domain
+   Cookies.remove("firebaseUser", { domain: ".glitch.me", path: '/', secure: true }); // Adjust domain and options accordingly
+
     await signOut(auth); 
     console.log("User signed out successfully");
   } catch (error) {
