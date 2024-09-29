@@ -49,19 +49,17 @@ const handleLogout = async () => {
     Cookies.remove("firebaseUser", { domain: "firebase-auth-setup.glitch.me", path: '/' });
 
     Cookies.remove("firebaseUser", { domain: "firebase-auth-setup.glitch.me" }); // Use your actual domain
-   Cookies.remove("firebaseUser", { domain: ".glitch.me", path: '/', secure: true }); // Adjust domain and options accordingly
-
+    Cookies.remove("firebaseUser", { domain: ".glitch.me", path: '/', secure: true }); // Adjust domain and options accordingly
+    if (window.chrome) {
+    window.chrome.runtime.sendMessage(
+    "nmamlcliogiihpdhhpfdgjhpnbbobfke",
+    { message: "logout", user: {} },
+    function (response) {
+    console.log(response);
+    }
+    );
+    }
     await signOut(auth); 
-            if (window.chrome) {
-          window.chrome.runtime.sendMessage(
-            "nmamlcliogiihpdhhpfdgjhpnbbobfke",
-            { message: "logout", user: {} },
-            function (response) {
-              console.log(response);
-            }
-          );
-        }
-
     console.log("User signed out successfully");
   } catch (error) {
     console.error("Error signing out:", error);
