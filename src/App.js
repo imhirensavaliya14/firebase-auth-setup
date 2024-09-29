@@ -16,7 +16,7 @@ function App() {
           email: user.email,
         };
         Cookies.set("firebaseUser", JSON.stringify(userInfo), {
-          domain: "firebase-auth-setup.glitch.me", // Use your actual domain
+          domain: "https://firebase-auth-setup.glitch.me/", // Use your actual domain
           expires: 7, // Cookie will expire in 7 days
           secure: true, // Use secure cookies for HTTPS
         });
