@@ -39,14 +39,17 @@ function App() {
     return () => unsubscribe(); 
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth); 
-      console.log("User signed out successfully");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
+const handleLogout = async () => {
+  try {
+    // Remove the cookie for the logged-in user
+    Cookies.remove("firebaseUser", { domain: "https://firebase-auth-setup.glitch.me/" }); // Use your actual domain
+    await signOut(auth); 
+    console.log("User signed out successfully");
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
