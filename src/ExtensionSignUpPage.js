@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Facebook, Mail } from 'lucide-react';
 import { googleProvider, facebookProvider, auth } from './firebaseConfig'; // Adjusted import statement
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 export default function ExtensionSignUpPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signupStatus, setSignupStatus] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isLogin, setIsLogin] = useState(false); // State to toggle between login and signup
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,13 +18,22 @@ export default function ExtensionSignUpPage() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log('Sign up successful:', { user });
-      setSignupStatus('Signup successful! Welcome, ' + name);
+      if (isLogin) {
+        // Login logic
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('Login successful:', { user });
+        setStatusMessage('Login successful! Welcome, ' + user.email);
+      } else {
+        // Sign up logic
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('Sign up successful:', { user });
+        setStatusMessage('Signup successful! Welcome, ' + name);
+      }
     } catch (error) {
-      console.error('Error signing up:', error);
-      setSignupStatus('Error signing up: ' + error.message);
+      console.error('Error:', error);
+      setStatusMessage('Error: ' + error.message);
     }
   };
 
@@ -32,10 +42,10 @@ export default function ExtensionSignUpPage() {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       console.log('Google Sign In successful:', { user });
-      setSignupStatus('Google Sign In successful! Welcome, ' + user.displayName);
+      setStatusMessage('Google Sign In successful! Welcome, ' + user.displayName);
     } catch (error) {
       console.error('Error signing in with Google:', error);
-      setSignupStatus('Error signing in with Google: ' + error.message);
+      setStatusMessage('Error signing in with Google: ' + error.message);
     }
   };
 
@@ -44,31 +54,28 @@ export default function ExtensionSignUpPage() {
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
       console.log('Facebook Sign In successful:', { user });
-      setSignupStatus('Facebook Sign In successful! Welcome, ' + user.displayName);
+      setStatusMessage('Facebook Sign In successful! Welcome, ' + user.displayName);
     } catch (error) {
       console.error('Error signing in with Facebook:', error);
-      setSignupStatus('Error signing in with Facebook: ' + error.message);
+      setStatusMessage('Error signing in with Facebook: ' + error.message);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-[400px] bg-white shadow-lg rounded-lg p-6">
-      <div className="flex justify-center mb-4">
-        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-          <span className="text-white font-bold text-lg">FB</span>
-        </div>
-      </div>
-         <h1 className="text-xl font-bold text-center mb-4">Sign Up</h1>        
+        <h1 className="text-xl font-bold text-center mb-4">{isLogin ? 'Log In' : 'Sign Up'}</h1>
         <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-            placeholder="Full Name"
-            required
-          />
+          {!isLogin && (
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
+              placeholder="Full Name"
+              required={!isLogin}
+            />
+          )}
           
           <input
             type="email"
@@ -89,13 +96,13 @@ export default function ExtensionSignUpPage() {
           />
           
           <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200 text-sm">
-            Sign Up
+            {isLogin ? 'Log In' : 'Sign Up'}
           </button>
         </form>
 
-        {signupStatus && (
+        {statusMessage && (
           <div className="mb-4 text-center text-sm text-red-600">
-            {signupStatus}
+            {statusMessage}
           </div>
         )}
         
@@ -109,15 +116,20 @@ export default function ExtensionSignUpPage() {
         </div>
         
         <div className="space-y-2">
-                 
           <button onClick={handleGoogleSignUp} className="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-200 flex items-center justify-center text-sm">
             <Mail className="w-4 h-4 mr-2 text-red-500" />
-            Sign Up with Google
+            {isLogin ? 'Log In with Google' : 'Sign Up with Google'}
           </button>
         </div>
         
         <p className="mt-4 text-center text-xs text-gray-600">
-          Already have an account? <button onClick={() => console.log('Navigate to Login')} className="text-blue-600 hover:underline">Log In</button>
+          {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="text-blue-600 hover:underline"
+          >
+            {isLogin ? 'Sign Up' : 'Log In'}
+          </button>
         </p>
       </div>
     </div>
