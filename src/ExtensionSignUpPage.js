@@ -160,7 +160,7 @@ export default function ExtensionSignUpPage() {
           </div>
         </div>
         
-        {is ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+        {!isLogin ? 
         <div className="mt-6 bg-white shadow sm:rounded-lg sm:px-10 py-6">
           <h3 className="text-lg font-medium text-gray-900 flex items-center">
             <Zap className="h-5 w-5 text-yellow-400 mr-2" />
@@ -182,6 +182,7 @@ export default function ExtensionSignUpPage() {
             ))}
           </ul>
         </div>
+      : <div></div>}
 
         <p className="mt-6 text-center text-xs text-gray-600">
           {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
