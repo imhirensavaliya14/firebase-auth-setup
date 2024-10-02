@@ -46,7 +46,7 @@ export default function ExtensionSignUpPage() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img className="mx-auto h-12 w-auto" src="/api/placeholder/240/50" alt="Your Logo" />
+        <img className="mx-auto h-12 w-auto" src="https://cdn.glitch.global/49f24bd5-b7a9-48e5-85c6-9c91d58e32ba/logo.png?1727879878232" alt="Your Logo" />
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           {isLogin ? 'Log In to Your Account' : 'Start Creating Today'}
         </h2>
@@ -159,7 +159,8 @@ export default function ExtensionSignUpPage() {
             </div>
           </div>
         </div>
-
+        
+        {is ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
         <div className="mt-6 bg-white shadow sm:rounded-lg sm:px-10 py-6">
           <h3 className="text-lg font-medium text-gray-900 flex items-center">
             <Zap className="h-5 w-5 text-yellow-400 mr-2" />
