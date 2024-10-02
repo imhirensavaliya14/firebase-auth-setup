@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Facebook, Mail } from 'lucide-react';
-import { googleProvider, facebookProvider, auth } from './firebaseConfig'; // Adjusted import statement
+import { Mail, ArrowRight, Check, Eye, EyeOff, Zap } from 'lucide-react';
+import { googleProvider, facebookProvider, auth } from './firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 export default function ExtensionSignUpPage() {
@@ -8,10 +8,13 @@ export default function ExtensionSignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
-  const [isLogin, setIsLogin] = useState(false); // State to toggle between login and signup
+  const [isLogin, setIsLogin] = useState(false);  // Toggle between login and signup
+  const [showPassword, setShowPassword] = useState(false);  // Toggle password visibility
 
+  // Handle form submission for login or signup
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (password.length < 8) {
       alert('Password must be at least 8 characters long');
       return;
@@ -19,115 +22,139 @@ export default function ExtensionSignUpPage() {
 
     try {
       if (isLogin) {
-        // Login logic
+        // Log in existing user
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        console.log('Login successful:', { user });
-        setStatusMessage('Login successful! Welcome, ' + user.email);
+        setStatusMessage(`Login successful! Welcome, ${user.email}`);
       } else {
-        // Sign up logic
+        // Sign up new user
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        console.log('Sign up successful:', { user });
-        setStatusMessage('Signup successful! Welcome, ' + name);
+        setStatusMessage(`Signup successful! Welcome, ${name}`);
       }
     } catch (error) {
-      console.error('Error:', error);
-      setStatusMessage('Error: ' + error.message);
+      setStatusMessage(`Error: ${error.message}`);
     }
   };
 
+  // Google sign-in handler
   const handleGoogleSignUp = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log('Google Sign In successful:', { user });
-      setStatusMessage('Google Sign In successful! Welcome, ' + user.displayName);
+      setStatusMessage(`Google Sign In successful! Welcome, ${user.displayName}`);
     } catch (error) {
-      console.error('Error signing in with Google:', error);
-      setStatusMessage('Error signing in with Google: ' + error.message);
-    }
-  };
-
-  const handleFacebookSignUp = async () => {
-    try {
-      const result = await signInWithPopup(auth, facebookProvider);
-      const user = result.user;
-      console.log('Facebook Sign In successful:', { user });
-      setStatusMessage('Facebook Sign In successful! Welcome, ' + user.displayName);
-    } catch (error) {
-      console.error('Error signing in with Facebook:', error);
-      setStatusMessage('Error signing in with Facebook: ' + error.message);
+      setStatusMessage(`Error signing in with Google: ${error.message}`);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-[400px] bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-xl font-bold text-center mb-4">{isLogin ? 'Log In' : 'Sign Up'}</h1>
-        <form onSubmit={handleSubmit} className="space-y-4 mb-4">
-          {!isLogin && (
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-              placeholder="Full Name"
-              required={!isLogin}
-            />
-          )}
-          
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-            placeholder="Email"
-            required
-          />
-          
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200"
-            placeholder="Password (min. 8 characters)"
-            required
-          />
-          
-          <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200 text-sm">
-            {isLogin ? 'Log In' : 'Sign Up'}
-          </button>
-        </form>
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <img className="mx-auto h-12 w-auto" src="/api/placeholder/240/50" alt="Your Logo" />
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          {isLogin ? 'Log In to Your Account' : 'Start Creating Today'}
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          {isLogin ? 'Welcome back! Log in to continue.' : 'Join our community and get started!'}
+        </p>
+      </div>
 
-        {statusMessage && (
-          <div className="mb-4 text-center text-sm text-red-600">
-            {statusMessage}
-          </div>
-        )}
-        
-        <div className="relative mb-4">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
-          </div>
-          <div className="relative flex justify-center text-xs">
-            <span className="px-2 bg-white text-gray-500">Or</span>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {/* Show full name input for sign up only */}
+            {!isLogin && (
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm pr-10"
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Submit button */}
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                {isLogin ? 'Log In' : 'Sign Up'}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
+            </div>
+          </form>
+
+          {/* Status message */}
+          {statusMessage && (
+            <div className="mt-4 text-center text-sm text-red-600">
+              {statusMessage}
+            </div>
+          )}
+
+          {/* Google Sign-in button */}
+          <div className="mt-6">
+            <button
+              onClick={handleGoogleSignUp}
+              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+            >
+              <Mail className="w-5 h-5 text-red-500 mr-2" />
+              {isLogin ? 'Log In with Google' : 'Sign Up with Google'}
+            </button>
           </div>
         </div>
-        
-        <div className="space-y-2">
-          <button onClick={handleGoogleSignUp} className="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-200 flex items-center justify-center text-sm">
-            <Mail className="w-4 h-4 mr-2 text-red-500" />
-            {isLogin ? 'Log In with Google' : 'Sign Up with Google'}
-          </button>
-        </div>
-        
-        <p className="mt-4 text-center text-xs text-gray-600">
+
+        {/* Switch between login and sign up */}
+        <p className="mt-6 text-center text-xs text-gray-600">
           {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-blue-600 hover:underline"
-          >
+          <button onClick={() => setIsLogin(!isLogin)} className="text-blue-600 hover:underline">
             {isLogin ? 'Sign Up' : 'Log In'}
           </button>
         </p>
