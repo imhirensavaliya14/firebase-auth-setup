@@ -7,14 +7,14 @@ import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB5cvfl7hT3KBZTh-RHesnjXz_JJwgrhg8",
-    authDomain: "nodefirebase-6e0dd.firebaseapp.com",
-    projectId: "nodefirebase-6e0dd",
-    storageBucket: "nodefirebase-6e0dd.appspot.com",
-    messagingSenderId: "14143901690",
-    appId: "1:14143901690:web:5ad864c1d46889044b5e43"
-  };
-
+  apiKey: "AIzaSyCDBgRtDLY13s6dVvzcKouK5LYNy8Dqbr0",
+  authDomain: "klyra-c84ad.firebaseapp.com",
+  projectId: "klyra-c84ad",
+  storageBucket: "klyra-c84ad.appspot.com",
+  messagingSenderId: "315865406417",
+  appId: "1:315865406417:web:ee66e55bc07c042b9e1ef0",
+  measurementId: "G-VK5ZBE3CZS"
+};
 
 
 
