@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, Check, Eye, EyeOff, Zap } from 'lucide-react';
-import { googleProvider, facebookProvider, auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { googleProvider, auth } from '../firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage() {
@@ -9,7 +9,6 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -22,13 +21,11 @@ export default function SignUpPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
       setStatusMessage('Signup successful! Welcome, ' + name);
       navigate('/dashboard');
     } catch (error) {
       setStatusMessage('Error: ' + error.message);
     }
-
   };
 
   const handleGoogleSignUp = async () => {
@@ -42,36 +39,38 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md lg:max-w-lg">
         <img className="mx-auto h-12 w-auto" src="./logo.png" alt="Your Logo" />
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Start Creating Today
+        <h2 className="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">
+          Start Creating Today
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
-        Join thousands of creators and share your ideas with the world
+          Join thousands of creators and share your ideas with the world
         </p>
       </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-4 px-2 shadow sm:rounded-lg sm:px-10">
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md lg:max-w-lg">
+        <div className="bg-white py-4 px-4 shadow sm:rounded-lg sm:px-10 lg:px-12">
           <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full Name
-                </label>
-                <div className="mt-1">
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                </div>
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
               </div>
+            </div>
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email address
@@ -151,8 +150,8 @@ export default function SignUpPage() {
             </div>
           </div>
         </div>
-        
-        <div className="mt-6 bg-white shadow sm:rounded-lg sm:px-10 py-6">
+
+        <div className="mt-6 bg-white shadow sm:rounded-lg sm:px-10 py-6 lg:px-12">
           <h3 className="text-lg font-medium text-gray-900 flex items-center">
             <Zap className="h-5 w-5 text-yellow-400 mr-2" />
             Get started instantly
@@ -175,8 +174,10 @@ export default function SignUpPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-gray-600">
-          Already have an account?
-          <button onClick={() => navigate('/signin')} className="text-blue-600 hover:underline">Log In</button>
+          Already have an account?{' '}
+          <button onClick={() => navigate('/signin')} className="text-blue-600 hover:underline">
+            Log In
+          </button>
         </p>
       </div>
     </div>

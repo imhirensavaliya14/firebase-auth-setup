@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import SignUpPage from "./components/SignUpPage";
 import SignInPage from "./components/SignInPage";
+import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import AuthHandler from "./components/AuthHandler"; // Import AuthHandler
 
@@ -22,6 +23,7 @@ function App() {
           {/* Signup and Signin routes */}
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Dashboard route */}
           
