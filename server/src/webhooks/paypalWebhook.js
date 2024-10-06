@@ -1,4 +1,4 @@
-const Subscription = require('../models/user_susbcriptions');
+const Subscription = require('../models/user_subscriptions');
 
 exports.handleWebhook = async (req, res) => {
   const event = req.body;

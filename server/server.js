@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000;
 const { Pool } = require('pg');
 require('dotenv').config();
 const subscriptionRoutes = require('../server/src/routes/subscriptionRoutes')
-const fastSpringWebhook = require('../server/src/webhooks/fastspringWebhook')
+const paypalWebhook = require('../server/src/webhooks/paypalWebhook')
 
 
 // Serve static files from React app
@@ -49,4 +49,4 @@ app.use(express.json());
 
 // Routes
 app.use('/api/subscriptions', subscriptionRoutes);
-app.post('/fastspring-subscription-webhook', fastSpringWebhook.handleWebhook);
+app.post('/paypal-subscription-webhook', paypalWebhook.handleWebhook);
