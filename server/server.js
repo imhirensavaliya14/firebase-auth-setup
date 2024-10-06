@@ -17,10 +17,10 @@ app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from server!' });
 });
 
-// // Serve React for all other routes
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+// Serve React for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
