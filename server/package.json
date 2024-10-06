@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@toolkitx/fastspring": "^0.0.6",
+    "paypal-rest-sdk": "^1.8.1",
     "server": "file:"
   },
   "devDependencies": {

@@ -3,10 +3,10 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
-const { Pool } = require('pg');
 require('dotenv').config();
 const subscriptionRoutes = require('../server/src/routes/subscriptionRoutes')
 const paypalWebhook = require('../server/src/webhooks/paypalWebhook')
+const sequelize = require('./src/database');
 
 
 // Serve static files from React app
@@ -27,23 +27,8 @@ app.listen(PORT, () => {
 });
 
 
+sequelize.sync();
 
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
-
-
-// Test the database connection
-pool.connect((err, client, release) => {
-  if (err) {
-    console.error('Error acquiring client from pool', err.stack);
-  } else {
-    console.log('Database connected successfully');
-    release(); 
-  }
-});
 
 app.use(express.json());
 
