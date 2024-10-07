@@ -12,7 +12,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "paypal-rest-sdk": "^1.8.1",
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "axios": "^1.7.7",
     "server": "file:"
   },
   "devDependencies": {
