@@ -39,7 +39,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center px-2 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md lg:max-w-lg">
         <img className="mx-auto h-12 w-auto" src="./logo.png" alt="Your Logo" />
         <h2 className="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900">

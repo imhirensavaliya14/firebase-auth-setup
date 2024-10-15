@@ -1,39 +1,22 @@
 {
-  "name": "react-firebase-auth",
-  "version": "0.1.0",
+  "name": "fb-bulk-post-app",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "firebase": "^10.13.2",
-    "js-cookie": "^3.0.5",
-    "lucide-react": "^0.446.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.0.0",
-    "react-router": "^5.0.0",
-    "react-router-dom": "^6.26.2",
-    "react-scripts": "^5.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "client": "cd client && npm start",
+  "server": "cd server && node server.js",
+  "dev": "concurrently \"npm run client\" \"npm run server\"", 
+  "build": "cd client && npm run build", 
+  "start": "npm run build && npm run server"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.18.1",
+    "pg": "^8.13.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "engines": {
-    "node": ">=18.0.0 <21.0.0"
+  "devDependencies": {
+    "concurrently": "^9.0.1"
   }
 }
