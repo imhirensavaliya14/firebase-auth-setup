@@ -11,8 +11,7 @@
     "react-dom": "^18.0.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^6.26.2",
-    "react-scripts": "^5.0.1",
-    "typescript": "5.6.3"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,5 +36,8 @@
   },
   "engines": {
     "node": ">=18.0.0 <21.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
   }
 }
