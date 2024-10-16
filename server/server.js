@@ -45,6 +45,52 @@ app.use(session({
 }));
 
 
+app.get('/api/subscription', async (req, res) => {
+  const { email } = req.query; // Get email or subscriptionId from query parameters
+
+  try {
+    if (!email) {
+      return res.status(400).json({ 
+        message: 'Please provide an email.',
+        status:'success',
+        subscription: false // Still return the query result
+      });
+    }
+
+    let result;
+    if (email) {
+      // Query to fetch subscription details using the user's email
+      result = await db.query('SELECT * FROM subscriptions WHERE email = $1', [email]);
+    } else if (subscriptionId) {
+      // Query to fetch subscription details using the subscription ID
+      result = await db.query('SELECT * FROM subscriptions WHERE subscription_id = $1', [subscriptionId]);
+    }
+
+    if (result.rows.length === 0) {
+      return res.status(200).json({ 
+        message: 'No subscription found for the provided details.',
+        subscription: false, // Still return the query result
+        status:'success'
+      });
+    }
+
+    // Send subscription details as the response
+    return res.status(200).json({ 
+      message: 'subscription found for the provided email.',
+      status:'success',
+      subscription: result.rows[0] // Still return the query result
+    });
+  } catch (error) {
+    console.error('Error fetching subscription details:', error);
+    return res.status(500).json({ 
+      message: 'Error fetching subscription details',
+      error:error,
+      status:'error',
+      subscription: false // Still return the query result
+    });
+  }
+});
+
 // Endpoint to store user email in session
 app.post('/api/store-email', (req, res) => {
   const { email } = req.body;
@@ -89,7 +135,6 @@ app.get('/api/hello', async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 });
-
 
 // Serve React app for unknown routes (for React Router)
 app.get('*', (req, res) => {
@@ -175,6 +220,9 @@ app.post('/handleWebhook', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
 
 
 app.listen(PORT, () => {

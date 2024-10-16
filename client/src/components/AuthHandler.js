@@ -69,7 +69,15 @@ function AuthHandler({ setUser }) {
         }
       } else {
         setUser(null); // Clear user state
-        navigate("/signin");
+        if (location.pathname == "/checkout") {
+            navigate("/signin");
+        }
+        // if (location.pathname != "/" || location.pathname != "/signin" || location.pathname != "/signup") {
+        //   navigate(location.pathname);
+        // }else{
+        //   navigate("/signin");
+        // }
+        
       }
       setLoading(false); // Stop loading after user state is checked
     });
