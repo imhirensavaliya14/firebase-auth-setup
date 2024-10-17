@@ -168,6 +168,7 @@ app.post('/handleWebhook', async (req, res) => {
   }
 
   const userEmail = getUserEmailFromCustomFields(ORDER_CUSTOM_FIELDS);
+  //const userEmail = "frc.smb95@gmail.com";
   
   if (!userEmail) {
     return res.status(400).send('Email not found in custom fields.');
@@ -179,18 +180,20 @@ app.post('/handleWebhook', async (req, res) => {
     if (IPN_TYPE_NAME === 'OrderCharged' || IPN_TYPE_NAME === 'SubscriptionChargeSucceed') {
       subscriptionStatus = 'active';
     } else if (IPN_TYPE_NAME === 'OrderDeclined' || IPN_TYPE_NAME === 'SubscriptionChargeFailed') {
-      subscriptionStatus = 'failed';
+      subscriptionStatus = 'canceled';
     } else if (IPN_TYPE_NAME === 'SubscriptionSuspended') {
       subscriptionStatus = 'suspended';
     } else if (IPN_TYPE_NAME === 'SubscriptionTerminated') {
-      subscriptionStatus = 'terminated';
+      subscriptionStatus = 'canceled';
+    }else if (IPN_TYPE_NAME === 'OrderRefunded') {
+      subscriptionStatus = 'canceled';
     }
 
     if (!subscriptionStatus) {
       return res.status(400).send('Invalid IPN_TYPE_NAME.');
     }
 
-    const result = await db.query('SELECT * FROM subscriptions WHERE subscription_id = $1', [SUBSCRIPTION_ID]);
+    const result = await db.query('SELECT * FROM subscriptions WHERE email = $1', [userEmail]);
 
     if (result.rows.length > 0) {
       await db.query(
@@ -198,9 +201,11 @@ app.post('/handleWebhook', async (req, res) => {
          SET status = $1, 
              updated_at = NOW(), 
              payment_method = $2, 
-             email = $3 
-         WHERE subscription_id = $4`,
-        [subscriptionStatus, PAYMENT_METHOD_NAME, userEmail, SUBSCRIPTION_ID]
+             email = $3,
+             subscription_id = $5,
+             plan = $4  
+         WHERE email = $3`,
+        [subscriptionStatus, PAYMENT_METHOD_NAME, userEmail, productPlans[PRODUCT_ID], SUBSCRIPTION_ID]
       );
 
       console.log(`Subscription ${SUBSCRIPTION_ID} updated for customer ${userEmail}.`);
