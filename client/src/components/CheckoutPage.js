@@ -10,9 +10,14 @@ const CheckoutPage = ({ user }) => {
     { id: 'yearly', name: 'Yearly', price: '$99.99', period: '/year', savings: 'Save 20%' },
   ];
 
-  const monthlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97636&page-template=18913&use-test-mode=true&secret-key=Bm_K$ADXnX&exfo=742&x-userEmail=${user.email}`;
+  // const monthlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97636&page-template=18913&use-test-mode=true&secret-key=Bm_K$ADXnX&exfo=742&x-userEmail=${user.email}`;
   
-  const yearlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97637&page-template=18913&use-test-mode=true&secret-key=Bm_K$ADXnX&exfo=742&x-userEmail=${user.email}`;
+  // const yearlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97637&page-template=18913&use-test-mode=true&secret-key=Bm_K$ADXnX&exfo=742&x-userEmail=${user.email}`;
+
+  const monthlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97636&page-template=18913&exfo=742&x-userEmail=${user.email}`;
+
+  const yearlyCheckoutUrl = `https://store.payproglobal.com/checkout?products[1][id]=97637&page-template=18913&exfo=742&x-userEmail=${user.email}`;
+
   
   // Conditionally set the checkoutUrl based on the selected plan
   const checkoutUrl = selectedPlan === 'yearly' ? yearlyCheckoutUrl : monthlyCheckoutUrl;
