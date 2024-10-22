@@ -150,7 +150,6 @@ app.post('/handleWebhook', async (req, res) => {
       97726: 'free',
   };
 
-  console.log('Received webhook data:', webhookData);
 
   const {
     SUBSCRIPTION_ID,
@@ -159,17 +158,27 @@ app.post('/handleWebhook', async (req, res) => {
     PAYMENT_METHOD_NAME,
     ORDER_CUSTOM_FIELDS,
     IPN_TYPE_NAME,
-    PRODUCT_ID
+    PRODUCT_ID,
+    CUSTOMER_EMAIL
   } = webhookData;
 
+  console.log('Received webhook data:', webhookData);
+
+  //const userEmail = "frc.smb95@gmail.com";
+
   function getUserEmailFromCustomFields(customFields) {
+    if (!customFields) return null;
     const params = new URLSearchParams(customFields);
     return params.get('x-userEmail');
   }
-
-  const userEmail = getUserEmailFromCustomFields(ORDER_CUSTOM_FIELDS);
-  //const userEmail = "frc.smb95@gmail.com";
   
+  let userEmail = getUserEmailFromCustomFields(ORDER_CUSTOM_FIELDS);
+  
+  // Fallback to CUSTOMER_EMAIL if x-userEmail is not found in custom fields
+  if (!userEmail) {
+      userEmail = CUSTOMER_EMAIL;
+  }
+
   if (!userEmail) {
     return res.status(400).send('Email not found in custom fields.');
   }
@@ -188,6 +197,9 @@ app.post('/handleWebhook', async (req, res) => {
     }else if (IPN_TYPE_NAME === 'OrderRefunded') {
       subscriptionStatus = 'canceled';
     }
+
+    console.log('subscriptionStatus:', subscriptionStatus);
+
 
     if (!subscriptionStatus) {
       return res.status(400).send('Invalid IPN_TYPE_NAME.');
