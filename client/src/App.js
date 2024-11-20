@@ -5,6 +5,7 @@ import SignInPage from "./components/SignInPage";
 import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import CheckoutPage from "./components/CheckoutPage";
+import ThankyouPage from "./components/Thanks";
 
 import AuthHandler from "./components/AuthHandler"; // Import AuthHandler
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/thankyou" element={<ThankyouPage />} />
           {/* <Route path="/checkout"  element={<CheckoutPage user={user} />} /> */}
           <Route path="/checkout" element={user ? <CheckoutPage user={user} /> : <CheckoutPage user={{}} />} />
 
