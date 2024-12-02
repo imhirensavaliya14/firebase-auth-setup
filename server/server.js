@@ -91,6 +91,22 @@ app.get('/api/subscription', async (req, res) => {
   }
 });
 
+
+app.post('/thankyou', (req, res) => {
+  const { CUSTOMER_NAME, CUSTOMER_EMAIL } = req.body;
+
+  if (!CUSTOMER_NAME || !CUSTOMER_EMAIL) {
+    return res.status(400).send('Invalid request. Missing customer details.');
+  }
+
+  // Optionally, you can log or store these details in a database
+  console.log('Customer Name:', CUSTOMER_NAME);
+  console.log('Customer Email:', CUSTOMER_EMAIL);
+
+  // Redirect to the frontend thank you page with query parameters
+  res.redirect(`/thankyou?name=${encodeURIComponent(CUSTOMER_NAME)}&email=${encodeURIComponent(CUSTOMER_EMAIL)}`);
+});
+
 // Endpoint to store user email in session
 app.post('/api/store-email', (req, res) => {
   const { email } = req.body;
