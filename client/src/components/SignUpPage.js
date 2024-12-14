@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, Check, Eye, EyeOff, Zap } from 'lucide-react';
 import { googleProvider, auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile  } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage() {
@@ -21,8 +21,14 @@ export default function SignUpPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // Update the user's displayName
+      await updateProfile(user, {
+        displayName: name, // Use the provided name
+      });
+
       setStatusMessage('Signup successful! Welcome, ' + name);
-      navigate('/dashboard');
+      navigate(`/thankyou?name=${name}&email=${email}`);
     } catch (error) {
       setStatusMessage('Error: ' + error.message);
     }

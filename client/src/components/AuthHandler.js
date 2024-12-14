@@ -23,7 +23,7 @@ function AuthHandler({ setUser }) {
           secure: true,
           sameSite: "Lax",
         });
-
+        console.log('firebaseUser:', user);
         console.log('Environment Variables:', process.env);
 
         // Use the base URL from environment variables
@@ -62,7 +62,16 @@ function AuthHandler({ setUser }) {
 
         setUser(userInfo); // Update user state
         // Only redirect to the dashboard if the current path is root or signin/signup
-        if (location.pathname === "/" || location.pathname === "/signin" || location.pathname === "/signup") {
+        // Check if the user has just signed up
+        const creationTime = new Date(user.metadata.creationTime).getTime();
+        const lastSignInTime = new Date(user.metadata.lastSignInTime).getTime();
+        const signupHandled = localStorage.getItem("signupRedirectHandled");
+
+        if (creationTime === lastSignInTime && !signupHandled ) {
+          localStorage.setItem("signupRedirectHandled", "true"); // Persist the state
+          navigate(`/thankyou?name=${user.displayName}&email=${userInfo.email}`);
+        }
+        else if (location.pathname === "/" || location.pathname === "/signin" || location.pathname === "/signup") {
           navigate("/dashboard");
         } else {
           console.log('navigate to >>>> ', location.pathname + 'user >> ' + userInfo.email);
@@ -72,11 +81,7 @@ function AuthHandler({ setUser }) {
         if (location.pathname == "/checkout") {
             navigate("/signin");
         }
-        // if (location.pathname != "/" || location.pathname != "/signin" || location.pathname != "/signup") {
-        //   navigate(location.pathname);
-        // }else{
-        //   navigate("/signin");
-        // }
+        
         
       }
       setLoading(false); // Stop loading after user state is checked

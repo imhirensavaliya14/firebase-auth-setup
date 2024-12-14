@@ -8,6 +8,7 @@ const Dashboard = ({ user }) => {
 
   const handleLogout = async () => {
     try {
+      localStorage.removeItem("signupRedirectHandled");
       Cookies.remove("firebaseUser");
       await signOut(auth);
       console.log("User signed out successfully");
