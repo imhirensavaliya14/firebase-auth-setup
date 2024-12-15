@@ -72,7 +72,8 @@ function AuthHandler({ setUser }) {
           navigate(`/thankyou?name=${user.displayName}&email=${userInfo.email}`);
         }
         else if (location.pathname === "/" || location.pathname === "/signin" || location.pathname === "/signup") {
-          navigate("/dashboard");
+          //navigate("/dashboard");
+          navigate(`/thankyou?name=${user.displayName}&email=${userInfo.email}`);
         } else {
           console.log('navigate to >>>> ', location.pathname + 'user >> ' + userInfo.email);
         }
