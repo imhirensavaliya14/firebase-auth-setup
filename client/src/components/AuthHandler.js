@@ -70,6 +70,8 @@ function AuthHandler({ setUser }) {
         if (creationTime === lastSignInTime && !signupHandled ) {
           localStorage.setItem("signupRedirectHandled", "true"); // Persist the state
           navigate(`/thankyou?name=${user.displayName}&email=${userInfo.email}`);
+        }else if(location.pathname === "/logout" ){
+          navigate("/logout");
         }
         else if (location.pathname === "/" || location.pathname === "/signin" || location.pathname === "/signup") {
           //navigate("/dashboard");

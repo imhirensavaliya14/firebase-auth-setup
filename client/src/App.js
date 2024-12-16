@@ -6,6 +6,8 @@ import ResetPassword from "./components/ResetPassword";
 import Dashboard from "./components/Dashboard";
 import CheckoutPage from "./components/CheckoutPage";
 import ThankyouPage from "./components/Thanks";
+import Logout from "./components/Logout"; // Import the Logout component
+
 
 import AuthHandler from "./components/AuthHandler"; // Import AuthHandler
 
@@ -35,6 +37,9 @@ function App() {
           {/* Dashboard route */}
           
           <Route path="/dashboard" element={user ? <Dashboard user={user} /> : <Navigate to="/signin" />} />
+
+          {/* Logout route */}
+          <Route path="/logout" element={<Logout />} />
 
           {/* Fallback route if a user is not found */}
           <Route path="*" element={<Navigate to="/signup" />} />
