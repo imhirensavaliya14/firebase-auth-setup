@@ -52,7 +52,7 @@ function AuthHandler({ setUser }) {
 
         if (window.chrome) {
           window.chrome.runtime.sendMessage(
-            "plbbbdfnahnafhegeijepiojmabeggml",
+            "lnjjcckgbpppdjcijhakcbnkggbdhccj",
             { message: "loginSuccess", user: userInfo },
             function (response) {
               console.log(response);
